@@ -1,0 +1,56 @@
+Esstructuras:
+https://en.wikipedia.org/wiki/Adjacency_matrix
+bit board + grafos + Bin (computational geometry) + doubly linked list
+
+1 - Datos de posicion de sensores es estatico
+2 - Procesador => contiene reglas y etc
+		1 - cuadrantes
+		2 - deteccion
+				- cuadrantes activos
+				- descartes
+				- coincidencias
+
+----------------------------------
+
+
+
+
+1:
+si no hay viento y la fuente esta en el centro de los sensores en dependencia de los niveles 
+se establece que esta en el area que se considera el centro 
+-------------------------------------------------------------
+2:si hay dos o mas fuentes en un solo segmentos se cosidera como una sola.
+------------------------------------------------------------
+3:existe una zona muerta es decir una zona de no sensado que consiste en el area fuera del area fantasma.
+-------------------------------------------------------------
+4:existe un cuadrante por cada sensor.
+-----------------------------------------------------------------
+5-existe una zona centrica donde la distancia entre un sensor y otro va a estar depterminada por el nivel minimo de medicion.
+---------------------------------------------------------------
+6-la informacion trafico se utilizara para estabilizar el cero absoluto de los sensores.
+-----------------------------------------------------------------
+7-se crearan puntos fantasmas en dependencia de el tiempo de ocurrencia entre los eventos y las mediciones de los sensores de co2 y viento.
+						
+caso general para deteccion de una fuente:
+	a: F>0
+	b:se activan los cuadrantes de lugar.
+	c:se asume una posicion inicial.
+	d:se procesan los cambios basados en la direccion del viento.
+	e:en dependencia de los factores de direccion y tiempo se va a determinar un comportamiento 
+	o trayectoria que delimitara el area aproximada de la fuente de emision.
+
+caso general para deteccion de 2 o mas fuentes:
+	a: F(e)>0
+	b: se activan los cuadrantes de lugar. (NO se asume posicion inicial de inmediato)
+	c: En base a las mediciones de los sensores de co2 y a la direccion del viento en el tiempo
+	se determinara la posicion inicial de las fuentes.
+	d: se determinara una ttrayectoria en el tiempo.
+	e: se delimitaran las areas.
+
+
+----------------------------------------------------------------						
+8-el tiempo de estabilizacion de los sensores sera dado en el tiempo que tarda en llegar al tiempo maximo con la diferencia de volver a su tiempo estable.
+----------------------------------------------------------------
+9- la pocision inicial estara dada por el punto medio entre la barrera del cuadrante fantasma penperdicular a o los sensores y pararelo a la direccion del viento en el cuadrante opuesto de la misma direccion del viento.
+----------------------------------------------------------------
+CRITERIO: el criterio para la ubicacion aproximada de la fuente esta basado en la implementacion de un algoritmo de deteccion de puntos en movimiento constante cuya direccion esta influenciada directamente por el sensor de viento y las medidas de los sensores que afecta en el tiempo.

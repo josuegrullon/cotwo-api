@@ -1,0 +1,35 @@
+
+regions -> area (m^2)
+id | name | coordinates (four points of bundle area) | margins |
+
+sensors
+id | name | sensor_type
+
+sensor_types => co2|wind
+id | name
+
+sensors_ubications
+id | sensor_id | lat | lng | region id
+
+---------------------------------------------------------------------------------
+Eventos -> asumiento que el measurement viene en un unico paquete siempre
+
+measurements => dise;ar estructura de validacion  para los campos json
+=> se puede omitirr el insert de valores <= 0
+id | wind_info(json) | sensors_info(json) | timestamp
+
+
+measurement_tags
+id | measurement_id | tag_id
+
+event_tags
+id | event_id | tag_id
+
+tags
+id | name | description
+
+
+
+
+---------------------------------------------------------------------------------
+

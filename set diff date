@@ -1,0 +1,58 @@
+const DSET
+
+sets
+id | identifier | m_id
+
+set_refs
+id | identifier | isActive
+	
+
+
+sets devuelve:
+- n of sets
+- array de sets
+- get last set
+- get set
+- tendencia de un set con peso
+- tendencia de un set sin peso
+
+- tabla de tendencias sin peso
+- tabla de tendencias con peso
+
+-----------------------
+
+
+	set diff date
+
+get record
+get last inserted -> null when zero
+
+compare diff date
+
+***relationship between sensors
+
+-------------
+Sets
+- id 
+- m_id
+- identifier
+
+- order data events by set based on
+	- timeDiff 
+			indica una sucesion de eventos
+			se guarda info en sets
+	- patterns 
+
+b-input:
+	package tageado y filtrado
+ 
+b-output:
+	- eventos estan activos cuando hay un flujo continuo durante el dia:
+		- quien los activa o no debe ser un task que los supervise 
+	- info de eventos by set activos
+	{
+		identifier_id,//set que contendra toda la info de las medidas con sensores etc
+		time promedio between events
+		avg ppm
+	}
+	- info de eventos by pattern

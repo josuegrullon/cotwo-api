@@ -1,0 +1,133 @@
+	console.warn('#########   MODO RANDOM TOTAL #########');
+	// console.warn('#########   MODO SECUENCIAL #########');
+
+
+	$(function(){
+		var timer = null, 
+		    interval = 1500,
+		    value = 0;
+
+		$("#counter-area").hide()
+
+		$("#start").click(function() {
+			console.log('------START BOT ATACK-------')
+
+			$("#start").attr('disabled','disabled')
+			
+			$("#counter-area").show()
+			 
+			$.ajax({
+			    type: 'GET',
+			    url: 'http://cotwo-api.com/v1/sensors',
+			    dataType: 'json',
+			    cache: false,
+			    async: true,
+			    success: function (data) {
+			    	console.info("######### GETTING SENSORS DATA FROM API ######")
+			    	
+			    	var wind_info = [];
+				    var sensors_info = [];
+
+				    if (timer !== null) return;
+					timer = setInterval(function () {
+						$("#counter").text(++value);
+
+				    	$.each(data, function (index, value){
+				    		// Ultra random way
+				    		
+				    		// var ppm = getRandomArbitrary(0, 100);
+				    		// var velocity = getRandomArbitrary(20, 45);
+				    		// var directions = ["n", "s", "e", "o", "ne", "no", "se", 'so'];
+		   					// var direction =  ["n", "s", "e", "o", "ne", "no", "se", 'so'][Math.floor(Math.random() * ["n", "s", "e", "o", "ne", "no", "se", 'so'].length)];
+
+		   					// MOdo secuencial ---- TO DO
+		   					// var ppm = getPpm();
+				    		// var velocity = getVelocity();
+				    		// // var directions = ["n", "s", "e", "o", "ne", "no", "se", 'so'];
+		   					// var direction =  getDirection();
+
+							if (value.type_id === 1) {
+								wind_info.push({
+									"identifier": value.identifier,
+									"velocity": getRandomArbitrary(20, 45),
+									"unit": "km/s",
+									"direction": ["n", "s", "e", "o", "ne", "no", "se", 'so'][Math.floor(Math.random() * ["n", "s", "e", "o", "ne", "no", "se", 'so'].length)]
+								});	
+							} else {
+								sensors_info.push({
+									"identifier": value.identifier,
+									"ppm": getRandomArbitrary(0, 100)
+								});
+							}
+		  				});
+		  					
+
+						var totalInfo = wind_info.concat(sensors_info);
+						//Display in table
+						displayData( value, totalInfo);
+								
+		  				// Post data to measurement table
+						console.info('--- SAVING TO MEASUREMENT ---')
+						$.ajax({
+						    type: 'POST',
+						    url: 'http://cotwo-api.com/v1/measurements',
+						    data: {
+						    	wind_info: JSON.stringify({wind_info}),
+						    	sensors_info:JSON.stringify({sensors_info})
+						    },
+						    dataType: 'json',
+						    cache: false,
+						    async: true,
+						    success: function (data) {
+
+						    }
+						});
+						console.log(JSON.stringify(totalInfo));
+						wind_info = [];
+						sensors_info = [];
+						totalInfo = [];
+			   		}, interval); 
+
+			    }
+			});
+		});
+
+		$("#stop").click(function() {
+			console.log('------END BOT ATACK-------')
+			$("#start").removeAttr('disabled');
+			$("#population").empty()
+
+			$("#counter").text('0')
+			$("#counter-area").hide()
+
+		    clearInterval(timer);
+		    timer = null
+		});
+	});
+
+	function displayData( value, allValues) {
+		// console.warn(wind_info);return;
+		$("#population").empty();
+		$("#population").append("<tr>"+
+			"<td>" + allValues[0].velocity.toFixed(2) + " | " + allValues[0].direction + "</td>"+
+			"<td>" + allValues[1].velocity.toFixed(2) + " | " + allValues[1].direction + "</td>"+
+			"<td>" + allValues[2].velocity.toFixed(2) + " | " + allValues[2].direction + "</td>"+
+			"<td>" + allValues[3].velocity.toFixed(2) + " | " + allValues[3].direction + "</td>"+
+			"<td>" + allValues[4].ppm.toFixed(2) + "</td>"+
+			"<td>" + allValues[5].ppm.toFixed(2) + "</td>"+
+			"<td>" + allValues[6].ppm.toFixed(2) + "</td>"+
+			"<td>" + allValues[7].ppm.toFixed(2) + "</td>"+
+			"</tr>"
+		);
+	}
+	function getRandomArbitrary(min, max) {	
+    	return Math.random() * (max - min) + min;
+	}
+	function getPpm() {
+	}
+
+	function getVelocity() {
+	}
+
+	function getDirection() {
+	}
