@@ -48,6 +48,7 @@ resource('/v1/measurements', 'Measurements');
 
 $app->options('/v1/datatable', 'MeasurementsController@datatable');
 $app->get('/v1/datatable', 'MeasurementsController@datatable');
+$app->get('/v1/datatable/{id}', 'MeasurementsController@datatableByID');
 $app->post('/v1/datatable', 'MeasurementsController@datatable');
 $app->get('/v1/testsubscriptions', 'MeasurementsController@testsubs');
 

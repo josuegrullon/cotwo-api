@@ -29,12 +29,24 @@ class Filter {
             return false;
         }
 
+       
+      $guzzle = new \GuzzleHttp\Client();
+      $url = 'http://api.openweathermap.org/data/2.5/weather?q=DominicanRepublic,SantoDomingo&appid=0f0fd0473ef1e111d3fdda0d195dcca2';
+
+      $response = json_decode((string) $guzzle->get($url)->getBody());
+
+        // print_r($response);
+        // // print_r([]);
+        // die();
 
         $col = Collectors::create([
             'ppm' => $request['ppm'],
             'dir' => strtolower($request['w_dir']),
             'identifier' => $request['id'],
             'velocity' => $request['w_vel'],
+            'humidity' => $response->main->humidity, 
+            'temperature' => $response->main->temp, 
+            'presure' => $response->main->pressure
         ]);
         
 

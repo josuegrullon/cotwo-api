@@ -10,7 +10,7 @@
 			console.warn('#########   MODO SECUENCIAL #########');
 		}
 		var timer = null, 
-		    interval = 1500,
+		    interval = 4000,
 		    value = 0;
 
 		$("#counter-area").hide()

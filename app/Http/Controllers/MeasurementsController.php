@@ -43,6 +43,10 @@ class MeasurementsController extends Controller
    		return $this->respond(Response::HTTP_OK, Reports::getMeasurements());
    	}
 
+    public function datatableByID($id)
+    {
+      return $this->respond(Response::HTTP_OK, Reports::getMeasurementsByID($id));
+    }
      /**
      * Groups information
      *
@@ -99,6 +103,13 @@ class MeasurementsController extends Controller
     //   // print_r(Helpers::getMyWind('0002'));
 
     //   die();
+      // $guzzle = new \GuzzleHttp\Client();
+      // $url = 'http://api.openweathermap.org/data/2.5/weather?q=DominicanRepublic,SantoDomingo&appid=0f0fd0473ef1e111d3fdda0d195dcca2';
+
+      // $response = json_decode((string) $guzzle->get($url)->getBody());
+
+      //   print_r([$response->main->humidity, $response->main->temp, $response->main->pressure]);
+      //   die();
 		return $this->respond(Response::HTTP_OK, SourceFinder::getGroupsInfo());
     }
 
@@ -137,7 +148,7 @@ class MeasurementsController extends Controller
     {
         $data = Filter::bufferCollectors($request->all());
         $m = self::MODEL;
-        return $this->respond(Response::HTTP_CREATED, $request);
+        // return $this->respond(Response::HTTP_CREATED, $request);
         // $this->validate($data, $m::$rules);
       
         if ($data == false) {
