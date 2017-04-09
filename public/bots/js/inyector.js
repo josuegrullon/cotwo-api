@@ -55,23 +55,23 @@ function measure(identifier, ppm, w_dir, w_vel) {
 		w_dir: w_vel
 	};
 }
-// // restart database firsr
-//  $.ajax({
-//  	'url': "http://138.197.7.114:81/v1/reset-all-database-tables",
-//  	type: 'GET',
-//    dataType: 'json',
-//    cache: false,
-//    async: false,
-//    success: function (data) {
-//  		console.warn("######################################################")  	
+// restart database firsr
+ $.ajax({
+ 	'url': "http://localhost/v1/reset-all-database-tables",
+ 	type: 'GET',
+   dataType: 'json',
+   cache: false,
+   async: false,
+   success: function (data) {
+ 		console.warn("######################################################")  	
 		
-//  		console.warn(data);
+ 		console.warn(data);
 
-//  		console.warn("___________ALL DATABASE VALUES RESETED_______________") 
+ 		console.warn("___________ALL DATABASE VALUES RESETED_______________") 
 
-//  		console.warn("######################################################")   	
-//    }
-//  });
+ 		console.warn("######################################################")   	
+   }
+ });
 
 
 
