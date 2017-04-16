@@ -24,6 +24,13 @@ class MeasurementsController extends Controller
 
    	public function getRegion()
    	{
+      ob_start();
+exec('top');
+$output = ob_get_clean();
+ob_clean();
+// $cpu = preg_split('/[\s]+/', shell_exec('mpstat 1 1'));
+// $cpu = 100-$cpu[42];
+// print_r(shell_exec('mpstat 1 1'));die();
    		return $this->respond(Response::HTTP_OK, Quadrants::getRegion());
    	}
 
