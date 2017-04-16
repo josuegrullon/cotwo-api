@@ -40,8 +40,8 @@ $update = $Config->checkUpdate();
     </script>
 </head>
 
-<body class="theme-<?php echo $Config->get('esm:theme'); ?>">
-
+<body class="">
+<!-- 
 <nav role="main">
     <div id="appname">
         <a href="index.php"><span class="icon-gauge"></span>eSM</a>
@@ -66,7 +66,7 @@ $update = $Config->checkUpdate();
     <ul>
         <li><a href="#" class="reload" onclick="esm.reloadBlock('all');"><span class="icon-cycle"></span></a></li>
     </ul>
-</nav>
+</nav> -->
 
 
 <div id="main-container">
@@ -337,7 +337,7 @@ $update = $Config->checkUpdate();
 
 
 
-        <div class="box column-right column-33" id="esm-services">
+        <div class="box column-right column-50" id="esm-services">
             <div class="box-header">
                 <h1>Services status</h1>
                 <ul>
@@ -354,7 +354,7 @@ $update = $Config->checkUpdate();
 
 
 
-
+<!-- 
         <div class="box t-center" style="margin: 0 33%;" id="esm-ping">
             <div class="box-header">
                 <h1>Ping</h1>
@@ -368,7 +368,7 @@ $update = $Config->checkUpdate();
                     <tbody></tbody>
                 </table>
             </div>
-        </div>
+        </div> -->
 
     </div>
 
