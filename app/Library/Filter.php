@@ -53,9 +53,9 @@ class Filter {
         $ppm = round(($col->ppm / 10000 ) *  100) ;
        
         if ($ppm > 60) {
-            // foreach (\App\News::all() as $key => $value) {
-            //      Helpers::sendMail("COTWO NOTIFICATION",   $value->email, " Level of: {$ppm}ppm in {$col->identifier} from {$col->dir}");
-            // }
+            foreach (\App\News::all() as $key => $value) {
+                 Helpers::sendMail("COTWO NOTIFICATION",   $value->email, " Level of: {$ppm}ppm in {$col->identifier} from {$col->dir}");
+            }
         } 
         $addMissingWinds = function ($info) {
           $all['wind_info'] = [

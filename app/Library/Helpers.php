@@ -176,7 +176,7 @@ class Helpers {
 
 
 	public static function sendMail($subject, $to, $message){
-      $url = 'http://api.fide.com/v1/sendmail';
+      $url = 'http://api.fideclub.com/v1/sendmail';
       $response = json_decode((string)  (new  \GuzzleHttp\Client())->post($url, ['form_params' => [
         'subject' => $subject,
         'to' => $to,

@@ -148,9 +148,7 @@ class MeasurementsController extends Controller
     {
         $data = Filter::bufferCollectors($request->all());
         $m = self::MODEL;
-        // return $this->respond(Response::HTTP_CREATED, $request);
-        // $this->validate($data, $m::$rules);
-      
+   
         if ($data == false) {
           return $this->respond(Response::HTTP_CREATED, false);
         }
