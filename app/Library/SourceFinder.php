@@ -8,6 +8,7 @@ use App\Library\Quadrants;
 use App\Library\SourcePolices;
 use App\Library\QuadrantsPolices;
 use App\Library\WindPolices;
+use App\Library\MathModel;
 
 class SourceFinder extends Polices{
 
