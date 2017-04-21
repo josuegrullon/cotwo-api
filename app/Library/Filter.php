@@ -35,28 +35,25 @@ class Filter {
 
       $response = json_decode((string) $guzzle->get($url)->getBody());
 
-        // print_r($response);
-        // // print_r([]);
-        // die();
+      $col = Collectors::create([
+          'ppm' => $request['ppm'],
+          'dir' => strtolower($request['w_dir']),
+          'identifier' => $request['id'],
+          'velocity' => $request['w_vel'],
+          'humidity' => $response->main->humidity, 
+          'temperature' => $response->main->temp, 
+          'presure' => $response->main->pressure
+      ]);
+      
 
-        $col = Collectors::create([
-            'ppm' => $request['ppm'],
-            'dir' => strtolower($request['w_dir']),
-            'identifier' => $request['id'],
-            'velocity' => $request['w_vel'],
-            'humidity' => $response->main->humidity, 
-            'temperature' => $response->main->temp, 
-            'presure' => $response->main->pressure
-        ]);
-        
-
-        $ppm = round(($col->ppm / 10000 ) *  100) ;
+        // $ppm = round(($col->ppm / 10000 ) *  100) ;
+        $ppm = (int)$col->ppm ;
        
-        if ($ppm > 60) {
-            foreach (\App\News::all() as $key => $value) {
-                 Helpers::sendMail("COTWO NOTIFICATION",   $value->email, " Level of: {$ppm}ppm in {$col->identifier} from {$col->dir}");
-            }
-        } 
+        // if ($ppm > 60) {
+        //     foreach (\App\News::all() as $key => $value) {
+        //          Helpers::sendMail("COTWO NOTIFICATION",   $value->email, " Level of: {$ppm}ppm in {$col->identifier} from {$col->dir}");
+        //     }
+        // } 
         $addMissingWinds = function ($info) {
           $all['wind_info'] = [
             [ 'identifier' => '123456A', 'velocity' => 0, 'unit' => 'm/s', 'direction'=> 0],
@@ -68,7 +65,7 @@ class Filter {
               if ($value['identifier'] == Helpers::getMyWind($info->identifier) ) {
                 $all['wind_info'][$key] = [
                  'identifier' => Helpers::getMyWind($info->identifier), 
-                 'velocity' => $info->velocity, 
+                 'velocity' => (int)$info->velocity, 
                  'unit' => 'm/s',
                  'direction'=> strtolower(trim($info->dir))
                 ];
@@ -87,7 +84,8 @@ class Filter {
           ];
           foreach ($all['sensors_info'] as $key => $value) {
               if ($value['identifier'] == $info->identifier ) {
-                $ppm = round(($info->ppm / 10000 ) *  100) ;
+                // $ppm = round(($info->ppm / 10000 ) *  100) ;
+                $ppm = (int)$info->ppm ;
                 $all['sensors_info'][$key] = [ 'identifier' => $info->identifier, 'ppm' => $ppm];
               }
           }

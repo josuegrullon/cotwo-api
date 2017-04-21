@@ -18,6 +18,8 @@ class SourceFinder extends Polices{
    */
   public static function getGroupsInfo()
   {	
+
+        // die();
       $union = [];
       $vel = [];
       $measurements = Buffer::getCurrentMeasurements(5);
@@ -25,9 +27,12 @@ class SourceFinder extends Polices{
         $wind = Buffer::getWindInfoAsArray($value);
         $ppm = Buffer::getSensorsInfoAsArray($value);
           foreach ($wind as $i => $w) {
+            $dist = MathModel::getAproxDistance($ppm[$i]['ppm'], (int)$w['velocity']);
              $union[$key][$i] = $w;
              $vel[$i][] = (int)$w['velocity'];
              $union[$key][$i]['ppm'] = $ppm[$i]['ppm'];
+            $union[$key][$i]['approx_distance_km'] = $dist;
+             $union[$key][$i]['approx_distance_m'] = $dist * 1000;
              $union[$key][$i]['co2_id'] = $ppm[$i]['identifier'];
           }
       }
@@ -45,7 +50,9 @@ class SourceFinder extends Polices{
 			}
   		$groupsInfo = [];
   		foreach ($activeCuadrants as $sensor => $info) {
+        $dist = MathModel::getAproxDistance($info['group']['avg'], $info['group']['w_vel_avg']);
           $groupsInfo[$sensor] = $info;
+          $groupsInfo[$sensor]['group']['approx_distance_m'] = $dist * 1000;
   				$groupsInfo[$sensor]['info']['a'] = ['dsoin'];
   				$groupsInfo[$sensor]['active_sub_quadrants'] = WindPolices::apply($info['group']['w_dir']);
   				$groupsInfo[$sensor] = Quadrants::appendQuadrants($sensor, $groupsInfo[$sensor]);
