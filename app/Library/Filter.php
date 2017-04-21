@@ -5,6 +5,7 @@ use App\CollectorsController;
 use App\Collectors;
 use App\CollectorsBuffer;
 use App\Library\MathModel;
+use App\Library\Helpers;
 
 class Filter {
 
