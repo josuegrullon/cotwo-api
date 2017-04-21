@@ -51,9 +51,9 @@ class Filter {
         $ppm = (int)$col->ppm ;
        
         if ($ppm > 1600) {
-           $dist = MathModel::getAproxDistance($ppm, (int)$request['w_vel']);
+           $dist = MathModel::getAproxDistance($ppm, (int)$col->velocity);
             foreach (\App\News::all() as $key => $value) {
-                 Helpers::sendMail("COTWO NOTIFICATION",   $value->email, " Level of: {$ppm}ppm in {$col->identifier} Direction: {$col->dir}, Aprox. Distance: {$dist}");
+              Helpers::sendMail("COTWO NOTIFICATION", $value->email, " Level of: {$ppm}ppm in {$col->identifier} Direction: {$col->dir}, Aprox. Distance: {$dist}");
             }
         } 
         $addMissingWinds = function ($info) {
