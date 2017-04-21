@@ -156,10 +156,10 @@ class MathModel {
       $x = 0.00001;
       
       $params = (object) [
-        'Q' => 10, // grams/sec
+        'Q' => 40, // grams/sec
         'h' => 10, // m 
         'u' => $windSpeed, // m/s -> wind velocity
-        'z' => 0,
+        'z' => 30,
         'y' => 0
       ];
 

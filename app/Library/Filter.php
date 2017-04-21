@@ -4,6 +4,7 @@ use App\Measurements;
 use App\CollectorsController;
 use App\Collectors;
 use App\CollectorsBuffer;
+use App\Library\MathModel;
 
 class Filter {
 
@@ -49,11 +50,12 @@ class Filter {
         // $ppm = round(($col->ppm / 10000 ) *  100) ;
         $ppm = (int)$col->ppm ;
        
-        // if ($ppm > 60) {
-        //     foreach (\App\News::all() as $key => $value) {
-        //          Helpers::sendMail("COTWO NOTIFICATION",   $value->email, " Level of: {$ppm}ppm in {$col->identifier} from {$col->dir}");
-        //     }
-        // } 
+        if ($ppm > 1600) {
+           $dist = MathModel::getAproxDistance($ppm, (int)$request['w_vel']);
+            foreach (\App\News::all() as $key => $value) {
+                 Helpers::sendMail("COTWO NOTIFICATION",   $value->email, " Level of: {$ppm}ppm in {$col->identifier} Direction: {$col->dir}, Aprox. Distance: {$dist}");
+            }
+        } 
         $addMissingWinds = function ($info) {
           $all['wind_info'] = [
             [ 'identifier' => '123456A', 'velocity' => 0, 'unit' => 'm/s', 'direction'=> 0],
